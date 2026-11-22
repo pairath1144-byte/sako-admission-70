@@ -1,1 +1,1 @@
-window.SAKO_GAS_URL = 'REPLACE_WITH_YOUR_APPS_SCRIPT_EXEC_URL';
+window.SAKO_GAS_URL = 'https://script.google.com/macros/s/AKfycbx4uHJczHIwGQVxxm3Y0CG78wUNxTIyHCjlewl5XIFBToRrr-NpB7bn0bYA8grrHzLa/exec';
