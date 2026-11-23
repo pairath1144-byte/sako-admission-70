@@ -27,6 +27,7 @@
     .launch .sako-action-buttons a.btn { display: flex; align-items: center; justify-content: center; flex: initial; position: static; float: none; transform: none; width: 100%; min-width: 0; max-width: none; min-height: 62px; margin: 0; padding: 14px 18px; border: none; border-radius: 14px; color: #fff; text-decoration: none; text-align: center; white-space: normal; overflow-wrap: anywhere; font-size: clamp(15px,1.8vw,18px); font-weight: 700; line-height: 1.45; cursor: pointer; }
     .launch .sako-action-buttons a.sako-apply { background: #0865b8; }
     .launch .sako-action-buttons a.sako-admin { background: #263f80; }
+    .launch .sako-action-buttons a.sako-check { background: #087f8c; grid-column: 1 / -1; }
     .launch .sako-action-buttons a.btn:hover { filter: brightness(1.08); }
     .launch .sako-action-buttons a.btn:focus-visible { outline: 3px solid #e3b735; outline-offset: 3px; }
     .launch #setup { font-size: 14px; color: #a33321; overflow-wrap: anywhere; }
@@ -47,39 +48,7 @@
       .launch .sako-action-buttons a.btn { padding: 12px; }
     }
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; } }
- 
-/* เครดิตผู้พัฒนาระบบ */
-
-.sako-footer {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 24px 16px;
-  margin-top: 24px;
-  text-align: center;
-}
-
-.sako-footer p {
-  margin: 0;
-  color: #263f80;
-  font-size: 14px;
-  line-height: 1.8;
-  font-weight: 500;
-}
-
-.sako-footer span {
-  display: block;
-}
-
-@media (max-width: 600px) {
-  .sako-footer {
-    padding: 18px 12px;
-  }
-
-  .sako-footer p {
-    font-size: 12px;
-  }
-}
- </style>
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -96,6 +65,7 @@
     <nav class="sako-action-buttons" aria-label="เมนูระบบรับสมัคร">
       <a class="btn sako-apply" id="apply" href="#">✎ กรอกใบสมัครนักเรียน</a>
       <a class="btn sako-admin" id="admin" href="#">♙ ผู้ดูแลระบบ / Dashboard</a>
+      <a class="btn sako-check" id="check" href="#">✓ ตรวจสอบผลการอนุมัติใบสมัครสำหรับผู้ปกครอง</a>
     </nav>
     <p id="setup" role="status" aria-live="polite"></p>
   </main>
@@ -105,6 +75,7 @@
     (function () {
       const apply = document.getElementById('apply');
       const admin = document.getElementById('admin');
+      const check = document.getElementById('check');
       const setup = document.getElementById('setup');
       const raw = typeof window.SAKO_GAS_URL === 'string' ? window.SAKO_GAS_URL.trim() : '';
       let gasUrl = '';
@@ -119,13 +90,14 @@
       if (gasUrl) {
         apply.href = gasUrl;
         admin.href = gasUrl + (gasUrl.includes('?') ? '&' : '?') + 'page=admin';
-        [apply, admin].forEach(function (a) {
+        check.href = gasUrl + (gasUrl.includes('?') ? '&' : '?') + 'page=check';
+        [apply, admin, check].forEach(function (a) {
           a.target = '_blank';
           a.rel = 'noopener noreferrer';
         });
       } else {
         setup.textContent = 'ยังไม่ได้ตั้งค่าลิงก์ระบบรับสมัคร กรุณาตรวจสอบ SAKO_GAS_URL ในไฟล์ config.js';
-        [apply, admin].forEach(function (a) {
+        [apply, admin, check].forEach(function (a) {
           a.addEventListener('click', function (event) {
             event.preventDefault();
             setup.textContent = 'ไม่พบ URL เว็บแอปที่ถูกต้องใน config.js — กรุณาใส่ลิงก์ Google Apps Script ที่ลงท้ายด้วย /exec';
@@ -144,11 +116,5 @@
       }
     })();
   </script>
-<footer class="sako-footer">
-  <p>
-    พัฒนาระบบโดย : นายไพรัช บินเสะ ผู้อำนวยการโรงเรียนบ้านสากอ
-    <span>สำนักงานเขตพื้นที่การศึกษาประถมศึกษานราธิวาส เขต 2</span>
-  </p>
-</footer>
 </body>
 </html>
